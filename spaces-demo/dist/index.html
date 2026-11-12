@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Apple Spaces — High-Fidelity OS Prototype. Seamless multi-device context across iPhone 16 Pro, Apple TV 4K, and iMessage.">
+  <title>Apple Spaces — OS Interactive Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+  <!-- Apple Top Navigation Bar -->
+  <header class="apple-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <svg class="apple-logo" viewBox="0 0 170 170" width="16" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.6-7.79-11.71-14.25-5.78-9.13-10.33-19.49-13.65-31.08-3.32-11.59-4.98-22.37-4.98-32.34 0-14.35 3.69-26.04 11.06-35.07 7.37-9.03 16.59-13.63 27.67-13.79 5.34 0 11.06 1.44 17.15 4.34 6.09 2.89 10.15 4.39 12.18 4.5 1.85-.11 6.13-1.66 12.83-4.66 6.7-3 12.38-4.39 17.06-4.17 12.74.87 22.86 5.88 30.36 15.02-10.99 6.64-16.38 15.89-16.16 27.75.22 9.58 3.96 17.63 11.22 24.16 7.27 6.53 15.95 10.23 26.05 11.1-2.29 6.86-5.06 14.15-8.31 21.87zM119.22 33.09c0-7.39 2.67-14.37 8.01-20.94 5.34-6.57 11.83-10.74 19.47-12.51.98 7.39-1.25 14.48-6.69 21.27-5.44 6.79-12.04 11.01-19.8 12.66-.22-.16-.54-.27-.99-.48z"/>
+        </svg>
+        <span class="product-title">Spaces</span>
+        <span class="badge-tag">iOS 18 Prototype</span>
+      </div>
+
+      <!-- Guided Storyboard Walkthrough Bar -->
+      <nav class="walkthrough-bar" aria-label="Guided Flow">
+        <button class="step-btn" data-step="1" title="Step 1: Group Chat Planning">
+          <span class="step-num">1</span>
+          <span>Planning</span>
+        </button>
+        <span class="step-arrow">›</span>
+        <button class="step-btn" data-step="2" title="Step 2: Friend Vote & Join">
+          <span class="step-num">2</span>
+          <span>Invite & Vote</span>
+        </button>
+        <span class="step-arrow">›</span>
+        <button class="step-btn active" data-step="3" title="Step 3: Space Live">
+          <span class="step-num">3</span>
+          <span>Space Live</span>
+        </button>
+        <span class="step-arrow">›</span>
+        <button class="step-btn" data-step="4" title="Step 4: Living Room Billboard">
+          <span class="step-num">4</span>
+          <span>Apple TV</span>
+        </button>
+        <span class="step-arrow">›</span>
+        <button class="step-btn" data-step="5" title="Step 5: Post-Hangout Teardown">
+          <span class="step-num">5</span>
+          <span>Teardown</span>
+        </button>
+      </nav>
+
+      <!-- Stage Mode & Persona Switcher -->
+      <div class="header-actions">
+        <!-- Stage View Switcher -->
+        <div class="stage-mode-switch">
+          <button class="mode-btn active" data-mode="dual" title="Side-by-side iPhone + Apple TV">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="9" height="16" rx="2"/><rect x="13" y="6" width="9" height="12" rx="2"/></svg>
+            <span>Dual Stage</span>
+          </button>
+          <button class="mode-btn" data-mode="phoneOnly" title="iPhone 16 Pro Only">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="3"/><circle cx="12" cy="18" r="1"/></svg>
+            <span>iPhone</span>
+          </button>
+          <button class="mode-btn" data-mode="android" title="Android Web Link">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+            <span>Android</span>
+          </button>
+        </div>
+
+        <!-- Persona Toggle -->
+        <div class="persona-switch">
+          <button class="persona-btn active" id="btnPersonaHost" data-persona="host" title="Maya: Organizer / Social Coordinator">Maya (Host)</button>
+          <button class="persona-btn" id="btnPersonaGuest" data-persona="guest" title="Jordan: Lowkey Joiner / Private Participation">Jordan (Guest)</button>
+        </div>
+
+        <!-- Haptics Audio Toggle -->
+        <button class="audio-toggle" id="audioToggle" title="Toggle Apple UI sound feedback">
+          <svg class="audio-icon-on" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <svg class="audio-icon-off hidden" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+
+        <button class="help-btn" id="btnHelp" aria-label="About this prototype">?</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Keynote Context Hero Sub-Bar -->
+  <section class="prototype-context-bar">
+    <div class="context-inner">
+      <div class="context-left">
+        <span class="live-status-pill">
+          <span class="beacon-dot"></span>
+          <strong id="barSpaceStatusText">Movie Night · Space is Live</strong>
+        </span>
+        <span class="context-meta" id="barHardwareText">Living Room TV · 4 Friends Connected · Auto-Teardown on exit</span>
+      </div>
+
+      <div class="context-actions">
+        <button class="quick-sim-chip" id="chipSimArrival">📍 Jordan Arrives</button>
+        <button class="quick-sim-chip" id="chipSimSong">🎵 Add Song</button>
+        <button class="quick-sim-chip" id="chipSimPhoto">📷 Snap Photo</button>
+        <button class="quick-sim-chip" id="chipSimCash">💳 Pay $8 Cash</button>
+        <button class="quick-sim-chip end-chip" id="chipEndSpace">End Space</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Dual-Device Stage Canvas -->
+  <main class="prototype-viewport">
+    <div class="viewport-stage dual-mode" id="viewportStage">
+
+      <!-- ===================================================================
+           LEFT COLUMN: iPhone 16 Pro (Black Titanium Chassis)
+           =================================================================== -->
+      <div class="device-column phone-col" id="colPhone">
+        
+        <!-- Phone Mode Switcher Bar (App Surfaces) -->
+        <div class="phone-tabs-bar">
+          <button class="surface-tab active" data-surface="spacesApp">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+            <span>Live Space</span>
+          </button>
+          <button class="surface-tab" data-surface="imessage">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>iMessage Card</span>
+          </button>
+          <button class="surface-tab" data-surface="lockscreen">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Lock Screen</span>
+          </button>
+        </div>
+
+        <!-- iPhone 16 Pro Chassis -->
+        <div class="iphone16-pro">
+          <div class="titanium-rim">
+            <div class="display-panel" id="phoneDisplay">
+              
+              <!-- iOS 18 Top Status Bar -->
+              <div class="ios-status-bar">
+                <span class="status-time" id="statusClock">9:41</span>
+                
+                <!-- Dynamic Island (Centered, strictly isolated from status text) -->
+                <div class="dynamic-island" id="dynamicIsland" role="button" aria-expanded="false" tabindex="0" title="Tap to expand Dynamic Island">
+                  <div class="island-compact" id="islandCompact">
+                    <span class="island-icon" id="islandGlyph">🍿</span>
+                    <span class="island-label" id="islandLabel">Movie Night</span>
+                    <div class="island-wave" id="islandWaveform">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="status-glyphs">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+                  <span class="five-g">5G</span>
+                  <div class="battery-pill">
+                    <div class="battery-fill" style="width:88%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Expanded Dynamic Island Modal Dropdown (Overlay) -->
+              <div class="island-expanded-overlay hidden" id="islandExpandedOverlay">
+                <div class="island-expanded-card">
+                  <div class="exp-top-row">
+                    <div class="exp-badge">
+                      <span class="exp-emoji">🍿</span>
+                      <div>
+                        <strong>Movie Night</strong>
+                        <small>Living Room TV · 4 in Room</small>
+                      </div>
+                    </div>
+                    <span class="exp-live-pill">Live</span>
+                  </div>
+
+                  <div class="exp-player-row">
+                    <div class="exp-art">♫</div>
+                    <div class="exp-meta">
+                      <strong id="islandTrackName">Interstellar Theme</strong>
+                      <small id="islandTrackArtist">Hans Zimmer · Queued by Jordan</small>
+                    </div>
+                    <div class="exp-controls">
+                      <button class="exp-ctrl-btn">❚❚</button>
+                      <button class="exp-ctrl-btn" id="btnIslandNextTrack">▶▶</button>
+                    </div>
+                  </div>
+
+                  <div class="exp-footer-row">
+                    <span class="exp-anchor-tag">Living Room Apple TV</span>
+                    <button class="exp-end-btn" id="btnIslandEnd">Quick End</button>
+                  </div>
+                </div>
+                <div class="island-backdrop" id="islandBackdrop"></div>
+              </div>
+
+              <!-- =========================================================
+                   SURFACE 1: Spaces Native App (Live Space Home)
+                   ========================================================= -->
+              <div class="surface-view active" id="surfaceSpacesApp">
+                <div class="ios-app-scroll">
+                  
+                  <!-- Navigation Header (Large Title Style) -->
+                  <div class="ios-navigation-bar">
+                    <div class="nav-titles">
+                      <span class="nav-pretitle">APPLE SPACES</span>
+                      <h1 class="nav-large-title" id="appHeaderTitle">Movie Night</h1>
+                    </div>
+                    <div class="nav-profile-button" id="userAvatarBtn" title="Current Profile">
+                      <span id="userAvatarLetter">M</span>
+                    </div>
+                  </div>
+
+                  <!-- Hero Space Live Card -->
+                  <div class="space-hero-card" id="phoneActiveHero">
+                    <div class="hero-header">
+                      <div class="hero-live-badge">
+                        <span class="beacon-dot"></span>
+                        <span>SPACE LIVE</span>
+                      </div>
+                      <span class="hero-timer" id="spaceHeroTimer">8:00 – 11:30 PM</span>
+                    </div>
+
+                    <h2 class="hero-title" id="spaceHeroLocation">Maya's Living Room</h2>
+                    <p class="hero-desc">Synced to Living Room Apple TV. Friends can add music, share candid photos, and split costs with zero setup.</p>
+
+                    <div class="hero-chips-row">
+                      <div class="hero-chip">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                        <span id="chipNowPlaying">Interstellar Theme</span>
+                      </div>
+                      <div class="hero-chip">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span>4 Joined</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Section 1: Who's Here (Apple Contacts Inset Group) -->
+                  <div class="ios-section">
+                    <div class="section-title-row">
+                      <span class="section-title">WHO'S HERE</span>
+                      <span class="section-sub-action">4 Friends</span>
+                    </div>
+
+                    <div class="ios-list-group" id="guestsListContainer">
+                      <!-- Rendered by JS -->
+                    </div>
+                  </div>
+
+                  <!-- Section 2: Costs & Split (Authentic Apple Cash Card Look) -->
+                  <div class="ios-section" id="costsSection">
+                    <div class="section-title-row">
+                      <span class="section-title">COSTS & SPLIT</span>
+                      <button class="section-action-btn" id="btnAddCostAction">+ Add Cost</button>
+                    </div>
+
+                    <div class="apple-cash-wallet-card">
+                      <div class="cash-card-top">
+                        <div class="cash-logo">
+                          <svg viewBox="0 0 170 170" width="12" height="12" fill="currentColor"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.6-7.79-11.71-14.25-5.78-9.13-10.33-19.49-13.65-31.08-3.32-11.59-4.98-22.37-4.98-32.34 0-14.35 3.69-26.04 11.06-35.07 7.37-9.03 16.59-13.63 27.67-13.79 5.34 0 11.06 1.44 17.15 4.34 6.09 2.89 10.15 4.39 12.18 4.5 1.85-.11 6.13-1.66 12.83-4.66 6.7-3 12.38-4.39 17.06-4.17 12.74.87 22.86 5.88 30.36 15.02-10.99 6.64-16.38 15.89-16.16 27.75.22 9.58 3.96 17.63 11.22 24.16 7.27 6.53 15.95 10.23 26.05 11.1-2.29 6.86-5.06 14.15-8.31 21.87zM119.22 33.09c0-7.39 2.67-14.37 8.01-20.94 5.34-6.57 11.83-10.74 19.47-12.51.98 7.39-1.25 14.48-6.69 21.27-5.44 6.79-12.04 11.01-19.8 12.66-.22-.16-.54-.27-.99-.48z"/></svg>
+                          <span>Cash</span>
+                        </div>
+                        <span class="cash-card-chipin-label" id="cashContributorsCount">3 of 4 paid</span>
+                      </div>
+
+                      <div class="cash-card-amount-row">
+                        <div>
+                          <span class="cash-amount" id="cashTotalAmount">$32.00</span>
+                          <span class="cash-split-sub" id="cashSplitSub">Pizza & Drinks → $8.00 / each</span>
+                        </div>
+                        <button class="apple-pay-glass-btn" id="btnPayCashShare">
+                          <span id="btnPayCashShareText">Pay $8</span>
+                        </button>
+                      </div>
+
+                      <div class="cash-progress-bar">
+                        <div class="cash-progress-fill" id="cashProgressFill" style="width: 75%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Section 3: SharePlay Queue -->
+                  <div class="ios-section">
+                    <div class="section-title-row">
+                      <span class="section-title">SHARED MUSIC QUEUE</span>
+                      <span class="section-sub-action">Living Room TV</span>
+                    </div>
+
+                    <div class="apple-music-platter">
+                      <div class="platter-art" id="nowPlayingArt">♫</div>
+                      <div class="platter-meta">
+                        <strong id="platterTrackTitle">Interstellar Theme</strong>
+                        <span id="platterArtist">Hans Zimmer · Soundtrack</span>
+                        <small id="platterAddedBy">Queued by Jordan</small>
+                      </div>
+                      <div class="platter-wave">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </div>
+
+                    <div class="queue-mini-list" id="queueMiniList">
+                      <!-- Rendered by JS -->
+                    </div>
+
+                    <button class="apple-inset-button" id="btnAddSongToQueue">
+                      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                      <span>Add Song to Shared Queue</span>
+                    </button>
+                  </div>
+
+                  <!-- Section 4: Shared Photo Album Stream -->
+                  <div class="ios-section">
+                    <div class="section-title-row">
+                      <span class="section-title">LIVE PHOTOSTREAM</span>
+                      <span class="section-sub-action" id="photoStreamCount">4 Photos</span>
+                    </div>
+
+                    <div class="photos-polaroid-grid" id="photosGrid">
+                      <!-- Rendered by JS -->
+                    </div>
+
+                    <button class="apple-inset-button" id="btnSnapLivePhoto">
+                      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                      <span>Snap Photo & Stream to TV</span>
+                    </button>
+                  </div>
+
+                  <!-- Section 5: Privacy & Hardware Controls -->
+                  <div class="ios-section">
+                    <div class="section-title-row">
+                      <span class="section-title">PRIVACY & PERMISSIONS</span>
+                      <span class="section-sub-action" style="color:var(--apple-green)">Defaults to OFF</span>
+                    </div>
+
+                    <div class="ios-list-group">
+                      <div class="ios-list-row">
+                        <div class="row-icon-box" style="color:var(--apple-blue)">⌖</div>
+                        <div class="row-info">
+                          <strong>Share My Location</strong>
+                          <small id="locationSubtextLabel">Off · Tap "I'm here" check-in instead</small>
+                        </div>
+                        <label class="apple-switch">
+                          <input type="checkbox" id="chkLocationOptIn">
+                          <span class="slider"></span>
+                        </label>
+                      </div>
+
+                      <div class="ios-list-row">
+                        <div class="row-icon-box" style="color:var(--apple-teal)">▣</div>
+                        <div class="row-info">
+                          <strong>Living Room Apple TV</strong>
+                          <small>Shows photo slideshow & collaborative queue</small>
+                        </div>
+                        <label class="apple-switch">
+                          <input type="checkbox" id="chkLivingRoomTv" checked>
+                          <span class="slider"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Teardown / End Action -->
+                  <div class="ios-end-section">
+                    <button class="ios-danger-pill" id="btnPhoneEndSpace">End Space</button>
+                    <small class="ios-privacy-notice">Nothing stays on after. All sharing turns off automatically.</small>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- =========================================================
+                   SURFACE 2: iMessage Front-Door Bridge (Paper Sketch 2)
+                   ========================================================= -->
+              <div class="surface-view hidden" id="surfaceImessage">
+                <div class="imessage-container">
+                  <div class="imessage-header">
+                    <button class="imessage-back-btn" id="btnImessageBack">‹ Chats</button>
+                    <div class="imessage-title-cluster">
+                      <div class="imessage-avatar-stack">RM</div>
+                      <strong>Roommates</strong>
+                    </div>
+                    <span class="imessage-video-glyph">🎥</span>
+                  </div>
+
+                  <div class="imessage-chat-stream">
+                    <div class="imessage-bubble received">
+                      <span class="sender-tag">Maya</span>
+                      <p>who's free fri?</p>
+                      <span class="bubble-time">7:14 PM</span>
+                    </div>
+
+                    <!-- iMessage Interactive Space Card (Paper Sketch 2) -->
+                    <div class="imessage-space-interactive-card">
+                      <div class="card-glass-glow"></div>
+                      <div class="card-meta-top">
+                        <span class="card-brand-tag"> SPACES</span>
+                        <span class="card-place-tag">Fri · Maya's apt</span>
+                      </div>
+
+                      <h3 class="card-hangout-name">Movie Night</h3>
+
+                      <!-- Availability Voting Pills -->
+                      <div class="card-voting-box">
+                        <span class="voting-caption">Tap the times you can do:</span>
+                        <div class="time-pills-row" id="timePillRow">
+                          <button class="time-btn" data-time="7pm">7pm</button>
+                          <button class="time-btn active" data-time="8pm">8pm ✓</button>
+                          <button class="time-btn" data-time="9pm">9pm</button>
+                        </div>
+                        <span class="voting-consensus-label" id="votingConsensusLabel">4 of 5 free at 8pm (Consensus)</span>
+                      </div>
+
+                      <div class="card-cost-preview">
+                        <span>🍕 Pizza Split:</span>
+                        <strong>$32 → $8 each</strong>
+                      </div>
+
+                      <div class="card-button-row">
+                        <button class="card-join-primary" id="btnImessageJoin">
+                          <span id="imessageJoinBtnText">Join Space (One Tap)</span>
+                        </button>
+                        <button class="card-android-link-btn" id="btnPreviewAndroidLink">Android Link</button>
+                      </div>
+
+                      <small class="card-footnote">Android friends get a web link with limited view</small>
+                    </div>
+
+                    <div class="imessage-bubble sent" id="guestReplyBubble">
+                      <p>Joined! Voted 8pm and chipping into pizza fund 🍕</p>
+                      <span class="bubble-time">7:22 PM</span>
+                    </div>
+                  </div>
+
+                  <div class="imessage-bar">
+                    <button class="msg-plus" id="btnOpenCreateSpacePlus" title="Create Space">+</button>
+                    <div class="msg-input">iMessage</div>
+                    <span class="msg-mic">🎙</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- =========================================================
+                   SURFACE 3: Lock Screen / StandBy Mode Live Activity
+                   ========================================================= -->
+              <div class="surface-view hidden" id="surfaceLockscreen">
+                <div class="lockscreen-screen">
+                  <div class="lock-header">
+                    <span class="lock-glyph">🔒</span>
+                    <span class="lock-date">Friday, November 11</span>
+                    <h1 class="lock-clock-large">9:41</h1>
+                  </div>
+
+                  <!-- StandBy / Lock Screen Live Activity Platter -->
+                  <div class="lock-live-activity-card">
+                    <div class="la-top">
+                      <div class="la-space-badge">
+                        <span class="la-emoji">🍿</span>
+                        <div>
+                          <strong>Movie Night · 8:00 PM</strong>
+                          <small>Maya's apt · 4 Connected</small>
+                        </div>
+                      </div>
+                      <span class="la-pill-live">Live</span>
+                    </div>
+
+                    <div class="la-middle-player">
+                      <div class="la-thumb">♫</div>
+                      <div class="la-track-info">
+                        <strong>Interstellar Theme</strong>
+                        <small>Living Room Apple TV</small>
+                      </div>
+                      <button class="la-play-circle">❚❚</button>
+                    </div>
+
+                    <div class="la-bottom-split">
+                      <div class="la-split-bar">
+                        <div class="la-split-fill" style="width: 75%"></div>
+                      </div>
+                      <span class="la-split-text">$24 / $32 Pizza Split</span>
+                    </div>
+                  </div>
+
+                  <div class="lock-bottom-bar">
+                    <div class="lock-circle-btn">🔦</div>
+                    <div class="lock-circle-btn">📷</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- =========================================================
+                   SURFACE 4: Create Space Sheet (Paper Sketch 1)
+                   ========================================================= -->
+              <div class="surface-view hidden" id="surfaceCreateSpace">
+                <div class="create-space-sheet">
+                  <div class="sheet-nav-top">
+                    <button class="sheet-cancel" id="btnCancelCreateSpace">Cancel</button>
+                    <strong class="sheet-title">New Space</strong>
+                    <button class="sheet-send" id="btnSendSpaceToChat">Send</button>
+                  </div>
+
+                  <div class="sheet-form-scroll">
+                    <div class="sheet-input-box">
+                      <label>NAME</label>
+                      <input type="text" id="inputSpaceName" value="Movie Night">
+                    </div>
+
+                    <div class="sheet-input-box">
+                      <label>WHERE</label>
+                      <input type="text" id="inputSpaceWhere" value="Maya's apt">
+                    </div>
+
+                    <div class="sheet-input-box">
+                      <label>TIME OPTIONS</label>
+                      <div class="sheet-chips-row">
+                        <span class="chip-bubble">7pm</span>
+                        <span class="chip-bubble">8pm</span>
+                        <span class="chip-bubble">9pm</span>
+                        <span class="chip-add-btn">+</span>
+                      </div>
+                    </div>
+
+                    <div class="sheet-toggle-row">
+                      <div>
+                        <strong>Split costs</strong>
+                        <small>Apple Cash pooled pizza & drinks fund</small>
+                      </div>
+                      <label class="apple-switch">
+                        <input type="checkbox" id="chkCreateSplitCosts" checked>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+
+                    <div class="sheet-toggle-row">
+                      <div>
+                        <strong>Use Living Room TV</strong>
+                        <small>Shows who's here, photo slideshow & queue</small>
+                      </div>
+                      <label class="apple-switch">
+                        <input type="checkbox" id="chkCreateTv" checked>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+
+                    <button class="sheet-primary-action" id="btnSendToChatAction">Send to Roommates Chat</button>
+                    <small class="sheet-help-note">Organizer only fills 3 things. Apple TV is one toggle.</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- iOS Home Indicator Line -->
+              <div class="ios-home-bar"></div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================================
+           RIGHT COLUMN: Apple TV 4K "Party Billboard" (Living Room Hub)
+           =================================================================== -->
+      <div class="device-column tv-col" id="colTv">
+        <div class="tv-unit-frame">
+          <div class="tv-unit-bezel">
+            <div class="tv-ambient-glow" id="tvAmbientGlow"></div>
+
+            <div class="tv-os-shell">
+              <!-- tvOS Header -->
+              <div class="tvos-topbar">
+                <div class="tvos-brand">
+                  <svg viewBox="0 0 170 170" width="16" height="16" fill="currentColor"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.6-7.79-11.71-14.25-5.78-9.13-10.33-19.49-13.65-31.08-3.32-11.59-4.98-22.37-4.98-32.34 0-14.35 3.69-26.04 11.06-35.07 7.37-9.03 16.59-13.63 27.67-13.79 5.34 0 11.06 1.44 17.15 4.34 6.09 2.89 10.15 4.39 12.18 4.5 1.85-.11 6.13-1.66 12.83-4.66 6.7-3 12.38-4.39 17.06-4.17 12.74.87 22.86 5.88 30.36 15.02-10.99 6.64-16.38 15.89-16.16 27.75.22 9.58 3.96 17.63 11.22 24.16 7.27 6.53 15.95 10.23 26.05 11.1-2.29 6.86-5.06 14.15-8.31 21.87zM119.22 33.09c0-7.39 2.67-14.37 8.01-20.94 5.34-6.57 11.83-10.74 19.47-12.51.98 7.39-1.25 14.48-6.69 21.27-5.44 6.79-12.04 11.01-19.8 12.66-.22-.16-.54-.27-.99-.48z"/></svg>
+                  <span>tvOS 18 · Spaces Billboard</span>
+                </div>
+                <div class="tvos-status">
+                  <span class="tvos-tag">Living Room TV</span>
+                  <span class="tvos-clock" id="tvClock">9:41 PM</span>
+                </div>
+              </div>
+
+              <!-- tvOS Main Billboard Split Grid -->
+              <div class="tvos-grid">
+                
+                <!-- Left: Apple Music SharePlay Billboard -->
+                <div class="tvos-glass-card now-playing-hero">
+                  <div class="card-caption-row">
+                    <span class="card-caption">COLLABORATIVE QUEUE</span>
+                    <span class="card-caption-pill" id="tvQueueByBadge">Queued by Jordan</span>
+                  </div>
+
+                  <div class="tvos-album-stage">
+                    <div class="tvos-vinyl-art" id="tvAlbumArt">
+                      <span class="vinyl-glyph">♫</span>
+                    </div>
+                    <div class="tvos-song-meta">
+                      <h2 class="tvos-track-title" id="tvTrackName">Interstellar Theme</h2>
+                      <h3 class="tvos-artist-name" id="tvArtistName">Hans Zimmer</h3>
+                      <span class="tvos-album-name" id="tvAlbumTitle">Soundtrack</span>
+                    </div>
+                  </div>
+
+                  <div class="tvos-progress-box">
+                    <div class="tvos-progress-bar">
+                      <div class="tvos-fill" style="width: 45%"></div>
+                    </div>
+                    <div class="tvos-times">
+                      <span>1:48</span>
+                      <span>-2:43</span>
+                    </div>
+                  </div>
+
+                  <div class="tvos-next-up">
+                    <span class="next-tag">UP NEXT:</span>
+                    <strong id="tvUpNextTrack">Cruel Summer · Taylor Swift</strong>
+                    <small id="tvUpNextBy">(Maya)</small>
+                  </div>
+                </div>
+
+                <!-- Right: Photos Slideshow, Piggy Dial, Presence -->
+                <div class="tvos-sidebar-stack">
+                  
+                  <!-- Card A: Live Shared Photo Slideshow -->
+                  <div class="tvos-glass-card polaroid-card">
+                    <div class="card-caption-row">
+                      <span class="card-caption">SLIDESHOW FROM SPACE ALBUM</span>
+                      <span class="card-caption-pill" id="tvPhotoCountBadge">4 Photos</span>
+                    </div>
+                    <div class="tvos-polaroid-frame">
+                      <div class="polaroid-photo-box" id="tvPolaroidImg">
+                        <span class="polaroid-big-emoji">🍿🎬</span>
+                      </div>
+                      <span class="polaroid-label" id="tvPolaroidCaption">"Movie Night setup ready!" · Maya</span>
+                    </div>
+                  </div>
+
+                  <!-- Card B: Shared Cost Split Dial -->
+                  <div class="tvos-glass-card piggy-card">
+                    <div class="card-caption-row">
+                      <span class="card-caption">SHARED COST SPLIT</span>
+                      <span class="card-caption-pill" id="tvPiggyPercent">75% Paid</span>
+                    </div>
+                    <div class="tvos-piggy-row">
+                      <div class="tvos-dial-meter">
+                        <span class="dial-amount" id="tvPiggyAmount">$24</span>
+                        <small>/ $32</small>
+                      </div>
+                      <div class="tvos-piggy-copy">
+                        <strong>Pizza ($8 each)</strong>
+                        <p>3 of 4 paid · Remaining balance auto-refunds on exit.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Card C: Who's Here Presence -->
+                  <div class="tvos-glass-card presence-card">
+                    <div class="card-caption-row">
+                      <span class="card-caption">WHO'S HERE</span>
+                      <span class="card-caption-pill">4 Present</span>
+                    </div>
+                    <div class="tvos-roster-row" id="tvPresenceAvatars">
+                      <!-- Rendered by JS -->
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================================
+           VIEW 3: Android Friend (Web Link)
+           =================================================================== -->
+      <div class="device-column android-col hidden" id="colAndroid">
+        <div class="android-chassis">
+          <div class="android-browser-top">
+            <span class="android-ssl-lock">🔒</span>
+            <span class="android-url-pill">spaces.apple.com/join/movienight</span>
+            <span class="android-dots">⋮</span>
+          </div>
+
+          <div class="android-web-content">
+            <div class="android-apple-header">
+              <svg viewBox="0 0 170 170" width="14" height="14" fill="currentColor"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.6-7.79-11.71-14.25-5.78-9.13-10.33-19.49-13.65-31.08-3.32-11.59-4.98-22.37-4.98-32.34 0-14.35 3.69-26.04 11.06-35.07 7.37-9.03 16.59-13.63 27.67-13.79 5.34 0 11.06 1.44 17.15 4.34 6.09 2.89 10.15 4.39 12.18 4.5 1.85-.11 6.13-1.66 12.83-4.66 6.7-3 12.38-4.39 17.06-4.17 12.74.87 22.86 5.88 30.36 15.02-10.99 6.64-16.38 15.89-16.16 27.75.22 9.58 3.96 17.63 11.22 24.16 7.27 6.53 15.95 10.23 26.05 11.1-2.29 6.86-5.06 14.15-8.31 21.87zM119.22 33.09c0-7.39 2.67-14.37 8.01-20.94 5.34-6.57 11.83-10.74 19.47-12.51.98 7.39-1.25 14.48-6.69 21.27-5.44 6.79-12.04 11.01-19.8 12.66-.22-.16-.54-.27-.99-.48z"/></svg>
+              <span>Apple Spaces on the Web</span>
+            </div>
+
+            <div class="android-card-box">
+              <span class="android-invite-tag">INVITED BY MAYA</span>
+              <h2>Movie Night</h2>
+              <p>Fri · Maya's apt (8:00 – 11:30 PM)</p>
+
+              <div class="android-block">
+                <span class="block-title">Pick times you can do:</span>
+                <div class="time-pills-row">
+                  <button class="time-btn">7pm</button>
+                  <button class="time-btn active">8pm ✓</button>
+                  <button class="time-btn">9pm</button>
+                </div>
+              </div>
+
+              <div class="android-block">
+                <span class="block-title">Costs & Split:</span>
+                <div class="android-pay-card">
+                  <div>
+                    <strong>Pizza ($32 total)</strong>
+                    <small>Your share: $8.00</small>
+                  </div>
+                  <button class="android-checkout-btn" id="btnAndroidPay">Pay $8</button>
+                </div>
+              </div>
+
+              <div class="android-block">
+                <span class="block-title">Add to Living Room TV:</span>
+                <button class="android-outline-btn" id="btnAndroidAddPhoto">+ Upload Photo</button>
+                <button class="android-outline-btn" id="btnAndroidAddSong" style="margin-top:6px">+ Add Song to Queue</button>
+              </div>
+
+              <div class="android-privacy-note">
+                <small>No background tracking or device sync needed. You are viewing a secure guest link.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===================================================================
+       MODAL 1: Space Ended Teardown Sheet (Paper Sketch 4)
+       =================================================================== -->
+  <dialog class="apple-sheet-modal" id="teardownModal">
+    <div class="sheet-content">
+      <div class="sheet-grabber"></div>
+
+      <div class="sheet-header">
+        <span class="sheet-symbol-check">✓</span>
+        <h3>Space ended</h3>
+        <p id="sheetSubtext">Movie Night - Fri · Maya's apt</p>
+      </div>
+
+      <!-- You owe Maya $8 Card -->
+      <div class="settle-card-block" id="settleCardBlock">
+        <div class="settle-left">
+          <span class="settle-title">You owe Maya</span>
+          <span class="settle-amount">$8.00</span>
+          <small>Pizza & drinks split</small>
+        </div>
+        <button class="apple-pay-cta-btn" id="btnPayMayaApplePay">
+          <span>Pay</span>
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <div class="sheet-keep-options">
+        <span class="sheet-section-title">AUTOMATIC CLEANUP SUMMARY</span>
+
+        <div class="teardown-check-row">
+          <div class="check-meta">
+            <strong>24 photos saved to Movie Night album</strong>
+            <small>Shared to all attendees' Photos library</small>
+          </div>
+          <span class="green-check-badge">✓</span>
+        </div>
+
+        <div class="teardown-check-row">
+          <div class="check-meta">
+            <strong>Location sharing off</strong>
+            <small>All ephemeral Find My tokens revoked</small>
+          </div>
+          <span class="green-check-badge">✓</span>
+        </div>
+
+        <div class="teardown-check-row">
+          <div class="check-meta">
+            <strong>TV access removed</strong>
+            <small>Guest AirPlay permissions disconnected</small>
+          </div>
+          <span class="green-check-badge">✓</span>
+        </div>
+      </div>
+
+      <div class="sheet-actions">
+        <button class="sheet-primary-btn" id="btnPlanNextOne">Plan the next one</button>
+        <button class="sheet-secondary-btn" id="btnCloseTeardown">Dismiss</button>
+      </div>
+
+      <div class="sheet-privacy-footer">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        <span>Nothing stays on after. Clear what got saved and what got turned off.</span>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ===================================================================
+       MODAL 2: Add Hangout Cost
+       =================================================================== -->
+  <dialog class="apple-sheet-modal" id="addCostModal">
+    <div class="sheet-content">
+      <div class="sheet-grabber"></div>
+      <div class="sheet-header">
+        <span class="sheet-symbol-check" style="background:rgba(10,132,255,0.15);color:var(--apple-blue)">💳</span>
+        <h3>Add Hangout Expense</h3>
+        <p>Splits automatically across all 4 people in the Space.</p>
+      </div>
+
+      <div class="sheet-input-box" style="margin-bottom:12px">
+        <label>EXPENSE DESCRIPTION</label>
+        <input type="text" id="inputCostItem" value="Domino's Pizza & Soda">
+      </div>
+
+      <div class="sheet-input-box" style="margin-bottom:14px">
+        <label>TOTAL AMOUNT ($)</label>
+        <input type="number" id="inputCostAmount" value="32.00">
+      </div>
+
+      <div class="split-preview-badge">
+        <span>Split across 4 people:</span>
+        <strong id="splitPreviewAmount">$8.00 / each</strong>
+      </div>
+
+      <div class="sheet-actions">
+        <button class="sheet-primary-btn" id="btnConfirmAddCost">Confirm & Split via Apple Cash</button>
+        <button class="sheet-secondary-btn" id="btnCancelAddCost">Cancel</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ===================================================================
+       MODAL 3: About Apple Spaces & Research Spec
+       =================================================================== -->
+  <dialog class="apple-sheet-modal" id="aboutModal">
+    <div class="sheet-content">
+      <div class="sheet-grabber"></div>
+      <div class="sheet-header">
+        <span class="sheet-symbol-check"></span>
+        <h3>Apple Spaces Prototype</h3>
+        <p>TAMU Product Initiative Deliverable · Executive Summary</p>
+      </div>
+
+      <div class="about-body">
+        <h4>The Core Pivot (Hangout Wedge)</h4>
+        <p>Students’ biggest pains happen <strong>before the hangout</strong> (changing availability, deciding what to do, splitting costs). Spaces starts at the planning stage in Messages and carries seamlessly into the living room.</p>
+        
+        <h4>MVP Scope Boundaries:</h4>
+        <ul>
+          <li><strong>Hardware Anchor:</strong> iPhone + 1 Shared Apple TV in the living room.</li>
+          <li><strong>Location Privacy:</strong> Defaults to <strong>OFF</strong>. Users tap "I'm here" check-in if preferred.</li>
+          <li><strong>Cross-Platform Strategy:</strong> Android friends access a web link (`spaces.apple.com/join/...`) for plans, time votes, and cost split without being excluded.</li>
+          <li><strong>Teardown:</strong> True ephemerality—all permissions, TV access, and location revoke on exit.</li>
+        </ul>
+
+        <h4>Team Authors:</h4>
+        <p>Patrick Semler · Benjamin Aleman · Bhuvan Taliyakula · Diya Raj · Liam West</p>
+      </div>
+
+      <button class="sheet-primary-btn" id="btnCloseAbout">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Apple System Toast Notification -->
+  <div class="apple-toast hidden" id="appleToast">
+    <div class="toast-icon" id="toastIcon">🍿</div>
+    <div class="toast-body">
+      <strong id="toastTitle">Friend Arrived</strong>
+      <p id="toastMessage">Jordan arrived at Maya's apt.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
